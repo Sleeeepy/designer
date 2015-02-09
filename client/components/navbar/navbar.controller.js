@@ -3,10 +3,12 @@
 angular.module('myblogApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth) {
     $scope.menu = [
+	/*
 	{
       'title': 'Home',
       'link': '/'
     },
+	*/
 	{
 		'title': 'Designs',
 		'link': '/design'
@@ -14,6 +16,10 @@ angular.module('myblogApp')
 	{
 		'title': 'Samples',
 		'link': '/sample'
+	},
+{
+		'title': 'Lines',
+		'link': '/line'
 	}	
 	
 	];
@@ -25,7 +31,7 @@ angular.module('myblogApp')
 
     $scope.logout = function() {
       Auth.logout();
-      $location.path('/login');
+      $location.path('/');
     };
 
     $scope.isActive = function(route) {

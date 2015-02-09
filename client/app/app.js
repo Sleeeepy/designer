@@ -6,7 +6,8 @@ angular.module('myblogApp', [
   'ngSanitize',
   'ngRoute',
   'btford.socket-io',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'imageupload'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider

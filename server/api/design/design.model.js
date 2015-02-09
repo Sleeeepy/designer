@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var DesignSchema = new Schema({
-  name: String,
+  ref: String,
   info: String,
   active: Boolean,
   created: { type: Date, default: Date.now },

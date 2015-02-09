@@ -7,12 +7,21 @@
 // Set default node environment to development
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-var express = require('express');
-var mongoose = require('mongoose');
-var config = require('./config/environment');
+var express 	= require('express'),
+	mongoose 	= require('mongoose'),
+	Grid = require('gridfs-stream'),
+	config 		= require('./config/environment');
+
 
 // Connect to database
+//mongoose.connect(config.mongo.uri, config.mongo.options);
 mongoose.connect(config.mongo.uri, config.mongo.options);
+mongoose.connection.once('open',function(){
+	var gfs = Grid(mongoose.connection.db, mongoose.mongo);	
+});
+
+
+
 
 // Populate DB with sample data
 if(config.seedDB) { require('./config/seed'); }

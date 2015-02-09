@@ -2,10 +2,9 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-6">
       <h1>Sign up</h1>
-    </div>
-    <div class="col-sm-12">
+
       <form class="form" name="form" ng-submit="register(form)" novalidate>
 
         <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
@@ -63,6 +62,7 @@
           </a>
         </div>
 
+		<!--
         <hr>
         <div>
           <a class="btn btn-facebook" href="" ng-click="loginOauth('facebook')">
@@ -75,6 +75,7 @@
             <i class="fa fa-twitter"></i> Connect with Twitter
           </a>
         </div>
+		__>
       </form>
     </div>
   </div>
