@@ -2,20 +2,20 @@
 
 angular.module('myblogApp')
   .controller('DesignCtrl', function ($scope,design) {
-    
+
 	design.list(function(data){
 			//console.log(data);
 	});
   })
-  .controller('NewDesignCtrl', function ($scope,design,Auth) {
-    
-	design.list(function(data){
-			$scope.product_types =["Scarf","Hat","Glove"];
-			$scope.designer = Auth.getCurrentUser().name;
-	});
-	
-	
-	
+  .controller('NewDesignCtrl', function ($scope,design,Auth,Modal) {
+
+    $scope.colors = ["red","blue","green",,"dark green","light green","mint green"];
+		$scope.product_types = ["Scarf","Hat","Glove"];
+		$scope.designer = Auth.getCurrentUser().name;
+
+
+  
+
 	//datepicker
 	$scope.open = function($event) {
 		$event.preventDefault();
