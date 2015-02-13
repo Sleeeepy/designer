@@ -5,7 +5,7 @@ angular.module('myblogApp')
 
     // Public API here
     return {
-      
+
 	  list: function (callback) {
         $http({
 			method: 'GET',
@@ -13,12 +13,15 @@ angular.module('myblogApp')
 			cache: true
 		}).success(callback);
       },
-	  
+
 	  select: function (_id,callback) {
         $http.get('/api/designs/'+_id).success(callback);
-      }
-	  
-	  
-	  
+      },
+    show: function (_id,callback) {
+          $http.get('/api/images/'+_id).success(callback);
+        }
+
+
+
     };
   });

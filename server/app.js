@@ -16,9 +16,9 @@ var express 	= require('express'),
 // Connect to database
 //mongoose.connect(config.mongo.uri, config.mongo.options);
 mongoose.connect(config.mongo.uri, config.mongo.options);
-mongoose.connection.once('open',function(){
-	var gfs = Grid(mongoose.connection.db, mongoose.mongo);	
-});
+//mongoose.connection.once('open',function(){
+//	var gfs = Grid(mongoose.connection.db, mongoose.mongo);
+//});
 
 
 

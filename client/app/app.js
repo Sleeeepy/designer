@@ -7,7 +7,8 @@ angular.module('myblogApp', [
   'ngRoute',
   'btford.socket-io',
   'ui.bootstrap',
-  'imageupload'
+  'imageupload',
+  'angularFileUpload'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
