@@ -1,12 +1,12 @@
 'use strict';
 
-var _         = require('lodash');
-var Busboy    = require('busboy');
-var Image     = require('./image.model');
-var mongoose  = require('mongoose');
-var Grid      = require('gridfs-stream');
+var _         = require('lodash'),
+    Busboy    = require('busboy'),
+    Image     = require('./image.model'),
+    mongoose  = require('mongoose'),
+    GridStr   = require('gridfs-stream');
 
-var gfs = new Grid(mongoose.connection.db, mongoose.mongo);
+var gridStr = new GridStr(mongoose.connection.db, mongoose.mongo);
 
 // Get list of images
 exports.index = function(req, res) {
@@ -26,10 +26,10 @@ exports.show = function(req, res) {
     mode: 'r', // default value: w+, possible options: w, w+ or r, see [GridStore](http://mongodb.github.com/node-mongodb-native/api-generated/gridstore.html)
     root: 'my_collection',
   };
-  gfs.exist(options,function(err,found){
+  gridStr.exist(options,function(err,found){
     if(err){ return handleError(res, err); }
     if(!found){ return res.send(404); }
-    var readstream = gfs.createReadStream(options);
+    var readstream = gridStr.createReadStream(options);
     readstream.pipe(res);
 
   });
@@ -56,6 +56,8 @@ exports.upload = function(req, res) {
   });
 
   busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
+
+
     var imageID = mongoose.Types.ObjectId();
     var options = {
       _id: imageID, // MongoDb ObjectId
@@ -67,7 +69,7 @@ exports.upload = function(req, res) {
       //content_type: 'plain/text', // For content_type to work properly, set "mode"-option to "w" too!
     };
 
-    var writestream = gfs.createWriteStream(options);
+    var writestream = gridStr.createWriteStream(options);
     //fs.createReadStream(saveTo).pipe(writestream);
     file.pipe(writestream);
 
@@ -91,31 +93,18 @@ exports.upload = function(req, res) {
 });*/
 };
 
-// Updates an existing image in the DB.
-exports.update = function(req, res) {
-  if(req.body._id) { delete req.body._id; }
-  Image.findById(req.params.id, function (err, image) {
-    if (err) { return handleError(res, err); }
-    if(!image) { return res.send(404); }
-    var updated = _.merge(image, req.body);
-    updated.save(function (err) {
-      if (err) { return handleError(res, err); }
-      return res.json(200, image);
-    });
-  });
-};
 
 // Deletes a image from the DB.
 exports.destroy = function(req, res) {
-  console.log('asdf');
-  //var grid = new mongoose.Grid();
+  var grid = new mongoose.mongo.Grid(mongoose.connection.db,'my_collection');
   var imageID = new mongoose.Types.ObjectId(req.params.id);
   var options = {
     _id: imageID, // MongoDb ObjectId
     //mode: 'r', // default value: w+, possible options: w, w+ or r, see [GridStore](http://mongodb.github.com/node-mongodb-native/api-generated/gridstore.html)
     root: 'my_collection',
   };
-  grid.delete(options,function(err,success){
+
+  grid.delete(imageID,function(err,success){
     if(err){ return handleError(res, err); }
     res.send(200,success);
   });

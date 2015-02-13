@@ -61,7 +61,11 @@ angular.module('myblogApp')
   };
   $scope.toggleMin();
   $scope.format='dd MMMM yyyy';
+
+  
+
   $scope.dateOptions = {
+
     formatYear: 'yy',
     startingDay: 1
   };
