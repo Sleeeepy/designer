@@ -2,88 +2,108 @@
 
 <div class="container">
 
-	<div class="col-sm-12">
-		<h3> New Design</h3>
-		<div class="form-group col-lg-12">
-			<label> Designer: </label> {{designer}}
-		</div>
-		<form  role="form">
-			<div class="row">
-				<div class="form-group col-md-2">
-					<label for="inputPassword" control-label">Designer</label>
-					<input class="form-control" id="disabledInput" type="text" placeholder={{designer}} disabled>
-				</div>
+
+	<h3> New Design</h3>
+	<div class="form-group col-md-12">
+		<label> Designer: </label> {{designer}}
+	</div>
+	<form name="frm" role="form" novalidation>
+		<div ng-init="$parent.form = frm"></div>
+		<div class="row">
+			<div class="form-group col-md-2">
+				<label class="control-label">Designer</label>
+				<input class="form-control"  type="text" placeholder={{designer}} disabled>
 			</div>
-			<div class="row">
-				<div class="form-group col-md-3">
-					<label for="sel1">Product Type:</label>
-					<select class="form-control" id="sel1">
-						<option value='' disabled selected>Please select...</option>
-						<option ng-repeat="productType in productTypes">{{productType}}</option>
-					</select>
-					<span class="help-block">Required...</span>
-				</div>
-				<div class="form-group col-md-3 form-group-lg">
-					<label for="title" class="control-label">Description</label>
-					<textarea class="form-control" rows="2" ng-model="description"  />
-				</div>
-				<div class="form-group col-md-3">
-					<label for="title" class="control-label">Product Type</label>
-					<input type="text"   ng-model="selected"  typeahead="productType for productType in productTypes | filter:$viewValue | limitTo:8" class="form-control"/>
-				</div>
-
-
+		</div>
+		<div class="row">
+			<div class="form-group col-md-3"><!-- Product Type-->
+				<label>Product Type:</label>
+				<select
+				name="productType"
+				class="form-control"
+				ng-model="design.Type"
+				required
+				>
+				<option value='' disabled selected>Please select...</option>
+				<option ng-repeat="productType in productTypes">{{productType}}</option>
+				</select>
+				<span class="help-block" ng-show="frm.productType.$invalid">required...</span>
+			</div>
+			<div class="form-group col-md-3"><!-- Product Type-->
+				<label for="title" class="control-label">Product Type</label>
+				<input
+				type="text"
+				name="type"
+				ng-model="selected"
+				typeahead="productType for productType in productTypes | filter:$viewValue | limitTo:8"
+				class="form-control ng-valid"
+				required
+				/>
+				<span class="help-block" ng-show="frm.type.$invalid">required...</span>
+			</div>
+			<div class="form-group col-md-3"><!-- Description-->
+				<label for="title" class="control-label">Description</label>
+				<textarea class="form-control" rows="2" ng-model="description"  />
+			</div>
+			<div class="form-group col-md-3"><!-- Description-->
 				<label for="title" class="control-label">Due Date</label>
-				<div class="input-group col-md-3" ng-repeat="1 in [1]">
+				<div class="input-group">
 
 					<input type="text" class="form-control" datepicker-popup="{{format}}"  ng-model="dt" is-open="opened" min-date="minDate" show-button-bar="false" datepicker-options="{{dateOptions}}" date-disabled="disabled(date, mode)" />
 					<span class="input-group-btn">
 						<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
 					</span>
 				</div>
-
-
-
 			</div>
-			<!--
-				<div class="row">
-
-					<div class="col-md-3">
-						<label for="title" class="control-label">Specs</label>
-
-						<input placeholder="Dimensions" type="text" class="form-control" ng-model="dimenions"/>
-						<input placeholder="Colourway" type="text" class="form-control" ng-model="colourway" typeahead="color for color in colors | filter:$viewValue | limitTo:8"/>
-						<input placeholder="Ends" type="text" class="form-control" ng-model="end"/>
-						<input placeholder="Gauge" type="text" class="form-control" ng-model="gauge"/>
-						<input placeholder="FCount" type="text" class="form-control" ng-model="fCount"/>
-
-					</div>
-				</div>
-			</form>
-
-
-			<input type="file" accept="image/*" image="image2"
-			resize-max-height="500"
-			resize-max-width="500"
-			resize-quality="0.7"
-			/>
-			Original <img ng-show="image2" ng-src="{{image2.url}}" type="{{image2.file.type}}" />
-			Resized <img ng-show="image2" ng-src="{{image2.resized.dataURL}}" />
-		-->
-
-		<span class="btn btn-default btn-file">
-			<span class="glyphicon glyphicon-plus"></span> Image <input type="file" ng-file-select="onFileSelect($files)" multiple>
-		</span>
-
-		<input type="submit" class="btn btn-primary" ng-click="saveDesign()" value="Save"/>
-
-		<!-- images with delete icon -->
-		<div class= "row" style="padding-top:10px">
-			<div id="imagecontainer" style="position:relative;display:inline-block;width:280px;height:180px;overflow:hidden;float:left" ng-repeat="imageID in images">
-				<img ng-src="./api/images/{{imageID}}"  style="margin:5px;width:280px;height:auto;"/>
-				<a style="position:absolute;top:7px;right:2px;" href="" ng-click="removeImage(imageID)"><span class="glyphicon glyphicon-trash"></span></a>
-			</div>
-
 		</div>
+	<!--
+	<div class="row">
+
+	<div class="col-md-3">
+	<label for="title" class="control-label">Specs</label>
+
+	<input placeholder="Dimensions" type="text" class="form-control" ng-model="dimenions"/>
+	<input placeholder="Colourway" type="text" class="form-control" ng-model="colourway" typeahead="color for color in colors | filter:$viewValue | limitTo:8"/>
+	<input placeholder="Ends" type="text" class="form-control" ng-model="end"/>
+	<input placeholder="Gauge" type="text" class="form-control" ng-model="gauge"/>
+	<input placeholder="FCount" type="text" class="form-control" ng-model="fCount"/>
+
+</div>
+</div>
+</form>
+
+
+<input type="file" accept="image/*" image="image2"
+resize-max-height="500"
+resize-max-width="500"
+resize-quality="0.7"
+/>
+Original <img ng-show="image2" ng-src="{{image2.url}}" type="{{image2.file.type}}" />
+Resized <img ng-show="image2" ng-src="{{image2.resized.dataURL}}" />
+-->
+
+
+
+<input type="submit" class="btn btn-primary" ng-disabled="frm.$invalid" ng-click="saveDesign(formDesign)" value="Save"/>
+
+
+<ul class="nav nav-tabs">
+	<li class="active"><a href="#">Pictures</a></li>
+	<li><a href="#">Files</a></li>
+	<li><a href="#">Stories</a></li>
+	<li><a href="#">Samples</a></li>
+</ul>
+<br>
+<span class="btn btn-default btn-file">
+	<span class="glyphicon glyphicon-plus"></span> Image <input type="file" accept="image/*" ng-file-select="uploadImages($files)" multiple>
+</span>
+<!-- images with delete icon -->
+<div class= "row" style="padding-top:10px">
+	<div id="imagecontainer" style="position:relative;display:inline-block;width:280px;height:180px;overflow:hidden;float:left" ng-repeat="imageID in images">
+		<img ng-src="{{imageURI(imageID)}}"  style="margin:5px;width:280px;height:auto;"/>
+		<a style="position:absolute;top:7px;right:2px;" href="" ng-click="destroyImage(imageID)"><span class="glyphicon glyphicon-trash"></span></a>
 	</div>
+
+</div>
+
 </div>

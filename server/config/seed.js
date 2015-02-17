@@ -10,11 +10,11 @@ var User = require('../api/user/user.model');
 
 Thing.find({}).remove(function() {
   Thing.create({
-    name : 'Development Tools',
-    info : 'Integration with popular tools such as Bower, Grunt, Karma, Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, Stylus, Sass, CoffeeScript, and Less.'
+    name : 'Emma: Please chase Wuxi on.',
+    info : ''
   }, {
-    name : 'Server and Client integration',
-    info : 'Built with a powerful and fun stack: MongoDB, Express, AngularJS, and Node.'
+    name : 'Karina: Created a new design M3124-Y',
+    info : 'Click on Ref to check it out.'
   }, {
     name : 'Smart Build System',
     info : 'Build system ignores `spec` files, allowing you to keep tests alongside code. Automatic injection of scripts and styles into your index.html'
@@ -34,7 +34,8 @@ User.find({}).remove(function() {
   User.create({
     provider: 'local',
     name: 'Test User',
-	company: 'myCompany',
+	   company: 'myCompany',
+    department: ['T71','T72'],
     email: 'test@test.com',
     password: 'test'
   }, {

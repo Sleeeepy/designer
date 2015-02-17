@@ -1,5 +1,13 @@
 'use strict';
 
+var remove = function(arr,item){
+  for(var i = arr.length; i--;) {
+    if(arr[i] === item) {
+      arr.splice(i, 1);
+    }
+  }
+};
+
 angular.module('myblogApp')
 .controller('DesignCtrl', function ($scope,design) {
 
@@ -7,46 +15,44 @@ angular.module('myblogApp')
     console.log(data);
   });
 })
-.controller('NewDesignCtrl',['$scope','design','Auth','$upload','$http',
- function ($scope,design,Auth, $upload,$http) {
 
+
+.controller('NewDesignCtrl',['$scope','design','Auth','image',
+function ($scope,design,Auth,image) {
+  //$scope.design = new design();
   $scope.$on('$locationChangeStart', function( event ) {
-    var answer = confirm('Are you sure you want to leave this page?\n\nUnsaved changes will be lost.');
-    if (!answer) {
-      event.preventDefault();
+    if ($scope.form.$dirty){
+      var answer = confirm('Are you sure you want to leave this page?\n\nUnsaved changes will be lost.');
+      if (!answer) {
+        event.preventDefault();
+      }
     }
   });
 
   $scope.colors      = ['red','blue','green','dark green','light green','mint green'];
   $scope.productTypes = ['Scarf','Hat','Glove'];
   $scope.designer = Auth.getCurrentUser().name;
+
+  //images
   $scope.images=[];
-  $scope.onFileSelect = function($files) {
-     //$files: an array of files selected, each file has name, size, and type.
-     for (var i = 0; i < $files.length; i++) {
-       var $file = $files[i];
-       $upload.upload({
-         url: 'api/images',
-         file: $file
-       }).then(function(data, status, headers, config) {
-         // file is uploaded successfully
-         $scope.images.push(data.data.id);
-       });
-     }
-   };
-   $scope.removeImage = function(imageID){
-     var remove = function(arr,item){
-     for(var i = arr.length; i--;) {
-          if(arr[i] === item) {
-              arr.splice(i, 1);
-          }
-      }};
-      $http.delete('/api/images/'+imageID).success(function(){
-        remove($scope.images,imageID);
-      });
+  $scope.uploadImages = function($files) {
+    image.uploadImages($files,function(imageID){
+      $scope.images.push(imageID);
+    });
+  };
+  $scope.destroyImage = function(imageID){
+    var answer = confirm('Are you sure you want to permanently delete this image?\n\nLocal copies will not be affected.');
+    if (!answer) {return;}
+    image.destroy(imageID,function(imageID){
+      remove($scope.images,imageID);
+    });
+  };
+  $scope.imageURI = image.getURI;
 
 
-   };
+  $scope.saveDesign = function(form){
+
+  };
 
 
   //datepicker
@@ -62,7 +68,7 @@ angular.module('myblogApp')
   $scope.toggleMin();
   $scope.format='dd MMMM yyyy';
 
-  
+
 
   $scope.dateOptions = {
 
