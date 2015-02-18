@@ -1,10 +1,12 @@
 'use strict';
 
 angular.module('myblogApp')
-  .factory('design', function ($http) {
+  .factory('design', function ($http,$resource) {
+    return $resource('/api/designs/:id');
+
 
     // Public API here
-    return {
+    /*return {
 
 	  list: function (callback) {
         $http({
@@ -24,4 +26,7 @@ angular.module('myblogApp')
 
 
     };
+    */
+
+
   });

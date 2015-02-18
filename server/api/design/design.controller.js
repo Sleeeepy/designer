@@ -22,6 +22,7 @@ exports.show = function(req, res) {
 
 // Creates a new design in the DB.
 exports.create = function(req, res) {
+  console.log(req.body);
   Design.create(req.body, function(err, design) {
     if(err) { return handleError(res, err); }
     return res.json(201, design);

@@ -4,28 +4,22 @@
 
 
 	<h3> New Design</h3>
-	<div class="form-group col-md-12">
-		<label> Designer: </label> {{designer}}
-	</div>
-	<form name="frm" role="form" novalidation>
+	<h4>{{design.designer}}, {{design.company}}</h4>
+
+	<form name="frm" role="form"  autocomplete="off" novalidation>
 		<div ng-init="$parent.form = frm"></div>
+
 		<div class="row">
-			<div class="form-group col-md-2">
-				<label class="control-label">Designer</label>
-				<input class="form-control"  type="text" placeholder={{designer}} disabled>
-			</div>
-		</div>
-		<div class="row">
-			<div class="form-group col-md-3"><!-- Product Type-->
-				<label>Product Type:</label>
+			<div class="form-group col-md-3"><!-- Line-->
+				<label>Line:</label>
 				<select
-				name="productType"
+				name="line"
 				class="form-control"
-				ng-model="design.Type"
+				ng-model="design.line"
 				required
 				>
 				<option value='' disabled selected>Please select...</option>
-				<option ng-repeat="productType in productTypes">{{productType}}</option>
+				<option ng-repeat="line in lines">{{line}}</option>
 				</select>
 				<span class="help-block" ng-show="frm.productType.$invalid">required...</span>
 			</div>
@@ -34,7 +28,7 @@
 				<input
 				type="text"
 				name="type"
-				ng-model="selected"
+				ng-model="design.productType"
 				typeahead="productType for productType in productTypes | filter:$viewValue | limitTo:8"
 				class="form-control ng-valid"
 				required
@@ -45,11 +39,11 @@
 				<label for="title" class="control-label">Description</label>
 				<textarea class="form-control" rows="2" ng-model="description"  />
 			</div>
-			<div class="form-group col-md-3"><!-- Description-->
+			<div class="form-group col-md-3"><!-- Due Date-->
 				<label for="title" class="control-label">Due Date</label>
 				<div class="input-group">
 
-					<input type="text" class="form-control" datepicker-popup="{{format}}"  ng-model="dt" is-open="opened" min-date="minDate" show-button-bar="false" datepicker-options="{{dateOptions}}" date-disabled="disabled(date, mode)" />
+					<input type="text" class="form-control" datepicker-popup="{{format}}"  ng-model="design.due" is-open="opened" min-date="minDate" show-button-bar="false" datepicker-options="{{dateOptions}}" date-disabled="disabled(date, mode)" />
 					<span class="input-group-btn">
 						<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
 					</span>
@@ -84,7 +78,7 @@ Resized <img ng-show="image2" ng-src="{{image2.resized.dataURL}}" />
 
 
 
-<input type="submit" class="btn btn-primary" ng-disabled="frm.$invalid" ng-click="saveDesign(formDesign)" value="Save"/>
+<input type="submit" class="btn btn-primary" ng-disabled="frm.$invalid" ng-click="saveDesign(frm)" value="Save"/>
 
 
 <ul class="nav nav-tabs">

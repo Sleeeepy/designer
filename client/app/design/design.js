@@ -7,6 +7,10 @@ angular.module('myblogApp')
         templateUrl: 'app/design/design.html',
         controller: 'DesignCtrl'
       })
+    .when('/design/view/:id', {
+        templateUrl: 'app/design/design-view.html',
+        controller: 'DesignCtrl'
+      })
 	  .when('/design/new', {
         templateUrl: 'app/design/design-new.html',
         controller: 'NewDesignCtrl'

@@ -5,30 +5,40 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-	<a class="btn btn-primary btn-sm" href="/#/design/new"><span class="glyphicon glyphicon-plus"></span> 	</a>
-	<a class="btn btn-primary btn-sm" href="/#/design/new"><span class="glyphicon glyphicon-search"></span> 	</a>
+      <a class="btn btn-primary btn-sm" href="/#/design/new"><span class="glyphicon glyphicon-plus"></span> 	</a>
+      <a class="btn btn-primary btn-sm" href="/#/design/new"><span class="glyphicon glyphicon-search"></span> 	</a>
+    </div>
   </div>
+  <div class="row">
+    <div class="col-lg-6">
+      Most recent designs
+      <p> <input type="search" class"form-control" placeholder="Search" ng-model="query"></p>
+    </div>
   </div>
-  <div class="row">  
-	<div class="col-lg-6">
-		Most recent designs	
-	</div>
-</div> 
-  <div class="row">  
-  
-	<div class="col-lg-6 col-offset-1">
-		  <table class="table table-striped">
-			<thead>
-				<th>Name</th>
-				<th>Type</th>
-				<th>Designer</th>
-				<th>Last Update</th>
-				<th>Due Date</th>
-				<th>Status</th>
-			</thead>
-			<tbody>
-				</tbody>
-		</table>
-		</div>
+  <div class="row">
+
+    <div class="col-lg-6 col-offset-1">
+      <table class="table table-striped">
+        <thead>
+          <th ng-click="sort('_id')">Design Ref</th>
+          <th ng-click="sort('productType')">Type</th>
+          <th ng-click="sort('designer')">Designer</th>
+          <th ng-click="sort('created')">Last Update</th>
+          <th ng-click="sort('due')">Due Date</th>
+          <th>Status</th>
+        </thead>
+        <tbody>
+          <tr ng-repeat="design in designs | filter:query | orderBy: sort.field : sort.order"
+              ng-click="show(design._id)">
+            <td>{{design._id}}</td>
+            <td>{{design.productType}}</td>
+            <td>{{design.designer}}</td>
+            <td>{{design.created | date: 'dd/MM/yyyy'}}</td>
+            <td>{{design.due | date: 'dd/MM/yyyy'}}</td>
+            <td><img ng-src="{{imageURI(design.images[0])}}"  style="width:70px;height:auto;"/><td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-  </div>
+</div>

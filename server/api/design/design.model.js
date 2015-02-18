@@ -8,10 +8,13 @@ var DesignSchema = new Schema({
   info: String,
   active: Boolean,
   created: { type: Date, default: Date.now },
-  designer: Schema.Types.ObjectId,
-  company: Schema.Types.ObjectId,
-  product_type: String,
+  due: Date,
+  designer: String,//Schema.Types.ObjectId,
+  company: String,//Schema.Types.ObjectId,
+  productType: String,
   description: String,
+  images: [],
+  status: {type: String, default: 'new'},
   specs: {
 			composition: String,
 			colourway: String,
@@ -20,11 +23,8 @@ var DesignSchema = new Schema({
 			fcount: Number,
 			dimensions: { width: Number, length: Number },
 	samples:[Schema.Types.ObjectId],
-	status: String,
 	spec_sheet: String,
-	images: []
-			
-  
+
   }
 });
 
