@@ -1,5 +1,7 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 <div class="container">
   <h4> Design View </h4>
+  <p>{{design.productType}} created {{design.created}}</p>
 
+  <img ng-src="{{imageURI(design.images[0])}}"  style="margin:5px;width:580px;height:auto;"/>
 </div>

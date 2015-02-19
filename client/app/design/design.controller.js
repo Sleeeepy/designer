@@ -11,8 +11,17 @@ var remove = function(arr,item){
 
 
 angular.module('myblogApp')
-  .controller('DesignCtrl', function ($scope,$location,design,image) {
+  .controller('ViewDesignCtrl', function ($scope,$routeParams,design,image) {
+    
+    $scope.imageURI = image.getURI;
+    design.get({id:$routeParams.id},function(result){
+      $scope.design = result;
+      console.log($scope.design);
+    });
 
+
+  })
+  .controller('DesignCtrl', function ($scope,$location,$routeParams,design,image) {
     design.query(function(data){
       $scope.designs = data;
     });
@@ -22,7 +31,7 @@ angular.module('myblogApp')
       $scope.sort.order = !$scope.sort.order;
     };
     $scope.sort.order = false;
-    $scope.sort.field = "design.created";
+    $scope.sort.field = 'design.created';
 
     $scope.show = function(id){
       $location.url('/design/view/'+id);

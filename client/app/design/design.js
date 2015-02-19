@@ -9,7 +9,7 @@ angular.module('myblogApp')
       })
     .when('/design/view/:id', {
         templateUrl: 'app/design/design-view.html',
-        controller: 'DesignCtrl'
+        controller: 'ViewDesignCtrl'
       })
 	  .when('/design/new', {
         templateUrl: 'app/design/design-new.html',
