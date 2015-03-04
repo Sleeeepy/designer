@@ -11,6 +11,7 @@ var DesignSchema = new Schema({
   due: Date,
   designer: String,//Schema.Types.ObjectId,
   company: String,//Schema.Types.ObjectId,
+  line: String,
   productType: String,
   description: String,
   images: [],

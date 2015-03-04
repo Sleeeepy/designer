@@ -10,13 +10,23 @@
 		<div ng-init="$parent.form = frm"></div>
 
 		<div class="row">
+			<div class="form-group col-md-3"><!-- Design Ref-->
+				<label for="ref" class="control-label">Design Ref</label>
+				<input
+				type="text"
+				name="ref"
+				placeholder="M1-1233Y"
+				ng-model="design.ref"
+				class="form-control"
+				/>
+				<span class="help-block" ng-show="frm.ref.$invalid">required...</span>
+			</div>
 			<div class="form-group col-md-3"><!-- Line-->
 				<label>Line:</label>
 				<select
 				name="line"
 				class="form-control"
 				ng-model="design.line"
-				required
 				>
 				<option value='' disabled selected>Please select...</option>
 				<option ng-repeat="line in lines">{{line}}</option>
@@ -37,7 +47,7 @@
 			</div>
 			<div class="form-group col-md-3"><!-- Description-->
 				<label for="title" class="control-label">Description</label>
-				<textarea class="form-control" rows="2" ng-model="description"  />
+				<textarea class="form-control" rows="2" ng-model="design.description"  />
 			</div>
 			<div class="form-group col-md-3"><!-- Due Date-->
 				<label for="title" class="control-label">Due Date</label>
